@@ -8,50 +8,91 @@ $(document).ready(function () {
     var game = {
         questionAndAnwers: [
             questionOne = {
-                question: "How much wood could a wood chuck chuck, if a wood chuck could chuck wood?",
-                answer: true,
+                question: "The fastest land animal in the world is the zebra.",
+                answer: false,
                 number: 0,
-                successImage: "./assets/images/captainmarvel.jpg",
-                failureImage: "./assets/images/doctorstrange.jpg",
+                successImage: "./assets/images/cheetah.gif",
+                failureImage: "./assets/images/wrong.gif",
             },
             questionTwo = {
-                question: "What is the average air speed of a swallow?",
+                question: "Yogurt is produced by bacterial fermentation of milk",
                 answer: true,
                 number: 1,
-                successImage: "./assets/images/captainmarvel.jpg",
-                failureImage: "./assets/images/doctorstrange.jpg",
+                successImage: "./assets/images/yogurt.jpeg",
+                failureImage: "./assets/images/wrong.gif",
             },
             questionThree = {
-                question: "An african swallow or a european swallow?",
+                question: "Your ears are important when it comes to staying balanced.",
                 answer: true,
                 number: 2,
-                successImage: "./assets/images/captainmarvel.jpg",
-                failureImage: "./assets/images/doctorstrange.jpg",
+                successImage: "./assets/images/balance.jpg",
+                failureImage: "./assets/images/wrong.gif",
             },
             questionFour = {
-                question: "I don't know. Wait, what, nooooo?",
-                answer: true,
+                question: "Snakes have slimy skin.",
+                answer: false,
                 number: 3,
-                successImage: "./assets/images/captainmarvel.jpg",
-                failureImage: "./assets/images/doctorstrange.jpg",
+                successImage: "./assets/images/snek.jpg",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionFive = {
+                question: "Mice live for up to 10 years.",
+                answer: false,
+                number: 4,
+                successImage: "./assets/images/mouse.jpg",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionSix = {
+                question: "Owls are far-sighted, meaning that anything within a few inches of their eyes can’t be seen properly.",
+                answer: true,
+                number: 5,
+                successImage: "./assets/images/owl.jpg",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionSeven = {
+                question: " An adult human body has over 500 bones.",
+                answer: false,
+                number: 6,
+                successImage: "./assets/images/bones.gif",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionEight = {
+                question: "Rabbits are born blind.",
+                answer: true,
+                number: 7,
+                successImage: "./assets/images/bugs.jpg",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionNine = {
+                question: "DNA is the shortened form of the term ‘Deoxyribonucleic acid’.",
+                answer: true,
+                number: 8,
+                successImage: "./assets/images/dna.jpg",
+                failureImage: "./assets/images/wrong.gif",
+            },
+            questionTen = {
+                question: "Crocodiles have no sweat glands so they use their mouths to release heat.",
+                answer: true,
+                number: 9,
+                successImage: "./assets/images/croc.jpg",
+                failureImage: "./assets/images/wrong.gif",
             },
         ],
         questionsAsked: 0,
         score: 0,
         currentQuestion: "",
-        countDownTotal: 30, //seconds
+        countDownTotal: 31, //seconds
     }
 
     function startGame() {
         choseQuestion();
     }
 
-
     function choseQuestion() {
         updateDisplayForNewQuestion();
         if(game.currentQuestion === ""){
             game.currentQuestion = game.questionAndAnwers[0]; 
-        }else if(game.questionsAsked === 4){
+        }else if(game.questionsAsked === 10){
             console.log("here!")
             displayScore();
             return;
@@ -74,7 +115,7 @@ $(document).ready(function () {
         if(game.countDownTotal === 0){
             clearInterval(timerId);
             isRunning = false;
-            game.countDownTotal = 30;
+            game.countDownTotal = 31;
             displayFailure();
         }
         if(isRunning){
@@ -84,7 +125,7 @@ $(document).ready(function () {
     }
 
     function resetGame() {
-        game.countDownTotal = 30;
+        game.countDownTotal = 31;
         game.currentQuestion = "";
         game.questionsAsked = 0;
         game.score = 0;
@@ -101,6 +142,7 @@ $(document).ready(function () {
             console.log("incorrect");
             displayFailure();
         }
+        game.countDownTotal = 31;
     }
 
     function updateDisplayForNewQuestion(){
@@ -118,6 +160,7 @@ $(document).ready(function () {
         $("#trueButton").hide();
         $("#falseButton").hide();
         $("#question").hide();
+        $('#timer').text("");
         setTimeout(choseQuestion, 3000);
     }
 
@@ -142,6 +185,7 @@ $(document).ready(function () {
             isRunning = false;
         }
         setTimeout(resetGame, 10000);
+        $("#question").hide();
         $('#scoreCount').text(game.score);
         $('#score').css("visibility","visible")
     }
