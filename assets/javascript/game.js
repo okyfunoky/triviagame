@@ -10,22 +10,30 @@ $(document).ready(function () {
             questionOne = {
                 question: "How much wood could a wood chuck chuck, if a wood chuck could chuck wood?",
                 answer: true,
-                number: 0
+                number: 0,
+                successImage: "./assets/images/captainmarvel.jpg",
+                failureImage: "./assets/images/doctorstrange.jpg",
             },
             questionTwo = {
                 question: "What is the average air speed of a swallow?",
                 answer: true,
-                number: 1
+                number: 1,
+                successImage: "./assets/images/captainmarvel.jpg",
+                failureImage: "./assets/images/doctorstrange.jpg",
             },
             questionThree = {
                 question: "An african swallow or a european swallow?",
                 answer: true,
-                number: 2
+                number: 2,
+                successImage: "./assets/images/captainmarvel.jpg",
+                failureImage: "./assets/images/doctorstrange.jpg",
             },
             questionFour = {
                 question: "I don't know. Wait, what, nooooo?",
                 answer: true,
-                number: 3
+                number: 3,
+                successImage: "./assets/images/captainmarvel.jpg",
+                failureImage: "./assets/images/doctorstrange.jpg",
             },
         ],
         questionsAsked: 0,
@@ -40,6 +48,7 @@ $(document).ready(function () {
 
 
     function choseQuestion() {
+        updateDisplayForNewQuestion();
         if(game.currentQuestion === ""){
             game.currentQuestion = game.questionAndAnwers[0]; 
         }else if(game.questionsAsked === 4){
@@ -79,11 +88,8 @@ $(document).ready(function () {
         game.currentQuestion = "";
         game.questionsAsked = 0;
         game.score = 0;
+        $("#score").hide();
         startGame();
-    }
-
-    function displayTimeRemaining() {
-
     }
 
     function checkAnswer() {
@@ -97,26 +103,36 @@ $(document).ready(function () {
         }
     }
 
-    function displaySuccess() {
+    function updateDisplayForNewQuestion(){
+        $("#resultImage").css("display","none");
+        $("#trueButton").show();
+        $("#falseButton").show();
+        $("#question").show();
+    }
+
+    function updateDisplayOnAnswer(){
         if (isRunning) {
             clearInterval(timerId);
             isRunning = false;
-            console.log("Success timer");
         }
-        //actually display success
-        $('#question').text("Success");
+        $("#trueButton").hide();
+        $("#falseButton").hide();
+        $("#question").hide();
         setTimeout(choseQuestion, 3000);
     }
 
+    function displaySuccess() {
+        updateDisplayOnAnswer();
+        //actually display success
+        $("#resultImage").attr("src",game.currentQuestion.successImage);
+        $("#resultImage").css("display","inherit");
+    }
+
     function displayFailure() {
-        if (isRunning) {
-            clearInterval(timerId);
-            isRunning = false;
-            console.log("Failure timer");
-        }   
+        updateDisplayOnAnswer();
         //actually display failure
-        $('#question').text("Failure");
-        setTimeout(choseQuestion, 3000);
+        $("#resultImage").attr("src",game.currentQuestion.failureImage);
+        $("#resultImage").css("display","inherit");
     }
 
     function displayScore() {
@@ -126,7 +142,8 @@ $(document).ready(function () {
             isRunning = false;
         }
         setTimeout(resetGame, 10000);
-        $('#score').text(game.score);
+        $('#scoreCount').text(game.score);
+        $('#score').css("visibility","visible")
     }
 
     startGame();
