@@ -80,6 +80,7 @@ $(document).ready(function () {
         ],
         questionsAsked: 0,
         score: 0,
+        incorrectScore: 0,
         currentQuestion: "",
         countDownTotal: 31, //seconds
     }
@@ -129,7 +130,7 @@ $(document).ready(function () {
         game.currentQuestion = "";
         game.questionsAsked = 0;
         game.score = 0;
-        $("#score").hide();
+        $(".score").hide();
         startGame();
     }
 
@@ -140,6 +141,7 @@ $(document).ready(function () {
             displaySuccess();
         } else {
             console.log("incorrect");
+            game.incorrectScore++;
             displayFailure();
         }
         game.countDownTotal = 31;
@@ -187,7 +189,10 @@ $(document).ready(function () {
         setTimeout(resetGame, 10000);
         $("#question").hide();
         $('#scoreCount').text(game.score);
-        $('#score').css("visibility","visible")
+        $('#incorrectScoreCount').text(game.incorrectScore);
+        $("#trueButton").hide();
+        $("#falseButton").hide();
+        $('.score').css("visibility","visible")
     }
 
     startGame();
